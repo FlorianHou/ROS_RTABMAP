@@ -1,0 +1,40 @@
+<launch>
+    <include file="$(find realsense2_camera)/launch/rs_camera.launch">
+      <arg name="depth_width"             value="848"/>
+      <arg name="depth_height"            value="480"/>
+      <arg name="enable_depth"            value="true"/>
+      <arg name="depth_fps"               value="30"/>
+
+      <arg name="color_width"             value="848"/>
+      <arg name="color_height"            value="480"/>
+      <arg name="enable_color"            value="true"/>
+      <arg name="color_fps"               value="30"/>
+      
+      <arg name="align_depth"             value="true"/>
+      <arg name="enable_sync"             value="true"/>
+      <arg name="unite_imu_method"        value="copy"/>
+      <arg name="clip_distance"           value="-2"/>
+      <arg name="enable_gyro"             value="true"/>
+      <arg name="enable_accel"            value="true"/>
+      <arg name="initial_reset"           value="true"/>
+    </include>
+    
+    <node pkg="imu_filter_madgwick" type="imu_filter_node" name="imu_filter" output="screen"> 
+      <param name="use_mag"                value="false"/>
+      <param name="publish_tf"             value="false"/>
+      <param name="world_frame"            value="enu"/>
+      <remap from="/imu/data_raw"          to="/camera/imu"/>
+      <remap from="/imu/data"              to="/rtabmap/imu"/>
+    </node>
+    
+  <include file="$(find rtabmap_ros)/launch/rtabmap.launch">
+    <arg name="args"                      value="-d --Mem/UseOdomGravity true --Optimizer/GravitySigma 0.3"/>
+    <arg name="depth_topic"               value="/camera/aligned_depth_to_color/image_raw"/>
+    <arg name="rgb_topic"                 value="/camera/color/image_raw"/>
+    <arg name="camera_info_topic"         value="/camera/color/camera_info"/>
+    <arg name="approx_sync"               value="true"/>
+    <arg name="wait_imu_to_init"          value="true"/>
+    <arg name="imu_topic"                 value="/rtabmap/imu"/>
+  </include>
+  
+</launch>
