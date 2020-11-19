@@ -10,6 +10,5 @@ rosbag record -O $path \
         /camera/color/camera_info \
         /camera/color/image_raw \
         /camera/imu \
-        /rtabmap/imu \
-        /tf \
+	/tf \
         /tf_static
