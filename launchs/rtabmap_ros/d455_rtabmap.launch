@@ -1,6 +1,6 @@
 <launch> 
   <include file="$(find rtabmap_ros)/launch/rtabmap.launch">
-    <arg name="args"                      value="-d --Mem/UseOdomGravity true --Optimizer/GravitySigma 0.3"/>
+    <arg name="args"                      value="-d --Mem/UseOdomGravity true --Optimizer/GravitySigma 0.3 --Odom/Strategy 0" />
     <arg name="depth_topic"               value="/camera/aligned_depth_to_color/image_raw"/>
     <arg name="rgb_topic"                 value="/camera/color/image_raw"/>
     <arg name="camera_info_topic"         value="/camera/color/camera_info"/>
