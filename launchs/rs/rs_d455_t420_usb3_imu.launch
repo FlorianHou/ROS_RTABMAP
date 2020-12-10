@@ -3,12 +3,12 @@
       <arg name="depth_width"             value="848"/>
       <arg name="depth_height"            value="480"/>
       <arg name="enable_depth"            value="true"/>
-      <arg name="depth_fps"               value="30"/>
+      <arg name="depth_fps"               value="15"/>
 
       <arg name="color_width"             value="848"/>
       <arg name="color_height"            value="480"/>
       <arg name="enable_color"            value="true"/>
-      <arg name="color_fps"               value="30"/>
+      <arg name="color_fps"               value="15"/>
       
       <arg name="accel_fps"               value="250"/>
       <arg name="gyro_fps"                value="200"/>
@@ -19,6 +19,8 @@
       <arg name="enable_gyro"             value="true"/>
       <arg name="enable_accel"            value="true"/>
       <arg name="initial_reset"           value="false"/>
+      <arg name="json_file_path"          value="/home/florian/ROS/cfg/camera/HighResHighAccuracyPreset.json"/>
+      <param name="power_line_frequency" type="string" value="2"/>
     </include>
     
     <node pkg="imu_filter_madgwick" type="imu_filter_node" name="imu_filter" output="screen"> 
