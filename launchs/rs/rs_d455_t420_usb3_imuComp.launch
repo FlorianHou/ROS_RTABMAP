@@ -1,0 +1,32 @@
+<launch>
+    <include file="$(find realsense2_camera)/launch/rs_camera.launch">
+      <arg name="depth_width"             value="640"/>
+      <arg name="depth_height"            value="480"/>
+      <arg name="enable_depth"            value="true"/>
+      <arg name="depth_fps"               value="15"/>
+
+      <arg name="color_width"             value="640"/>
+      <arg name="color_height"            value="480"/>
+      <arg name="enable_color"            value="true"/>
+      <arg name="color_fps"               value="15"/>
+      
+      <arg name="accel_fps"               value="250"/>
+      <arg name="gyro_fps"                value="200"/>
+      <arg name="align_depth"             value="true"/>
+      <arg name="enable_sync"             value="true"/>
+      <arg name="unite_imu_method"        value="copy"/>
+      <arg name="clip_distance"           value="-2"/>
+      <arg name="enable_gyro"             value="true"/>
+      <arg name="enable_accel"            value="true"/>
+      <arg name="initial_reset"           value="false"/>
+      <arg name="json_file_path"          value="/home/florian/ROS/cfg/camera/HighResHighAccuracyPreset.json"/>
+      <param name="power_line_frequency" type="string" value="2"/>
+    </include>
+    
+    <node pkg="imu_complementary_filter" type="complementary_filter_node" name="imu_filter" output="screen"> 
+      <param name="use_mag"                value="false"/>
+      <param name="publish_tf"             value="false"/>
+      <remap from="/imu/data_raw"          to="/camera/imu"/>
+      <remap from="/imu/data"              to="/rtabmap/imu"/>
+    </node>
+</launch>
